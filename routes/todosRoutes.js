@@ -2,6 +2,18 @@ var express = require("express");
 var router = express.Router();
 
 const Todo = require("../models/todosModel");
+const { isLoggedIn } = require("../middleware/auth");
+
+/**
+ * @desc show the registered todos
+ * @route /todo/
+ * @method GET
+ * @access Public
+ */
+router.get("/", isLoggedIn, async (req, res, next) => {
+  const todos = await Todo.find();
+  res.json(todos);
+});
 
 /**
  * @desc Creates the todo

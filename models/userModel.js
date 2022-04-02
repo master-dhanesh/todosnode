@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
+const plm = require("passport-local-mongoose");
+
 const userModel = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
     required: [true, "Name is required"],
     minlength: [4, "Name must be at least 4 characters long"],
@@ -14,11 +16,11 @@ const userModel = new mongoose.Schema({
     validator: [validator.isEmail, "Invalid email"],
     // match: [/.+\@.+\..+/, "Please enter a valid email"],
   },
-  password: {
-    type: String,
-    required: [true, "Password is required"],
-    minlength: [8, "Password must be at least 8 characters long"],
-  },
+  // password: {
+  //   type: String,
+  //   required: [true, "Password is required"],
+  //   minlength: [8, "Password must be at least 8 characters long"],
+  // },
   avatar: {
     type: String,
     default: "default.jpg",
@@ -38,5 +40,7 @@ const userModel = new mongoose.Schema({
     },
   ],
 });
+
+userModel.plugin(plm);
 
 module.exports = mongoose.model("User", userModel);

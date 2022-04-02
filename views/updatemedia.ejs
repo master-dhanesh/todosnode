@@ -1,0 +1,40 @@
+<%- include('./partials/header')%>
+
+
+<form action="/updatemedia/<%= data._id%>" method="POST" enctype="multipart/form-data" class="mt-5 container">
+  <h3>Upload Multimedia</h3>
+  <div class="mb-3">
+    <label class="form-label">Username</label>
+    <input name="username" value="<%= data.username%>" type="text" class="form-control">
+  </div>
+
+  <div class="mb-3">
+    <img width="200" src="/uploads/<%= data.avatar %>" alt="">
+    <input name="oldavatar" value="<%= data.avatar%>" type="hidden">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Upload Avatar</label>
+    <input name="avatar" type="file" class="form-control" onchange="showPreview(event)">
+  </div>
+
+  <div class="mb-3">
+    <img width="200" class="preview" src="" alt="">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Update Avatar</button>
+</form>
+
+
+<script>
+  function showPreview(event){
+  if(event.target.files.length > 0){
+    var src = URL.createObjectURL(event.target.files[0]);
+    var preview = document.querySelector(".preview");
+    preview.src = src;
+    // preview.style.display = "block";
+  }
+}
+</script>
+
+
+<%- include('./partials/footer')%>

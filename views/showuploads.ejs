@@ -1,0 +1,36 @@
+<%- include('./partials/header')%>
+
+
+
+<div class="container list-group mt-5">
+    <% images.forEach(t => { %>
+    <div class="list-group-item list-group-item-action" aria-current="true">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"><%= t.username %></h5>
+            
+            <img width="200" src="/uploads/<%= t.avatar %>" alt="<%= t.avatar%>">
+
+            <small>
+
+                <a style="text-decoration: none;" href="/updatemedia/<%= t.id %>">
+                    <i style="color: royalblue; font-size: 2vmax;"  class="ri-edit-box-fill"></i>
+                </a>
+
+                <a style="text-decoration: none;" href="/deletemedia/<%= t.avatar %>">
+                    <i style="color: tomato; font-size: 2vmax;" class="ri-delete-bin-6-fill"></i>
+                </a>
+
+
+            </small>
+        </div>
+        <p class="mb-1"><%= t.itemdesc %></p>
+        <small><%= t.deadline %></small>
+    </div>
+
+    <% }) %>
+
+
+
+</div>
+
+<%- include('./partials/footer')%>

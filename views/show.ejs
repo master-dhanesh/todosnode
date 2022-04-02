@@ -1,0 +1,39 @@
+<%- include('./partials/header')%>
+
+
+
+    <div class="container list-group mt-5">
+        <% Todos.forEach(t=> { %>
+            <div class="list-group-item list-group-item-action" aria-current="true">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">
+                        <%= t.itemname %>
+                    </h5>
+                    <small>
+
+                        <a style="text-decoration: none;" href="/update/<%= t._id %>">
+                            <i style="color: royalblue; font-size: 2vmax;" class="ri-edit-box-fill"></i>
+                        </a>
+
+                        <a style="text-decoration: none;" href="/delete/<%= t._id %>">
+                            <i style="color: tomato; font-size: 2vmax;" class="ri-delete-bin-6-fill"></i>
+                        </a>
+
+
+                    </small>
+                </div>
+                <p class="mb-1">
+                    <%= t.itemdesc %>
+                </p>
+                <small>
+                    <%= t.deadline %>
+                </small>
+            </div>
+
+            <% }) %>
+
+
+
+    </div>
+
+    <%- include('./partials/footer')%>

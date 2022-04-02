@@ -1,0 +1,26 @@
+<%- include('./partials/header')%>
+
+
+  <form action="/update/<%= todo.id%>" method="POST" class="mt-5 container">
+      <div class="mb-3">
+        <label class="form-label">Item Name</label>
+        <input value="<%= todo.itemname%>" name="itemname" type="text" class="form-control">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Item Description</label>
+        <input value="<%= todo.itemdesc %>" name="itemdesc" type="text" class="form-control">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Deadline</label>
+        <input value="<%= todo.deadline%>" name="deadline" type="date" class="form-control">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+
+
+
+<%- include('./partials/footer')%>
