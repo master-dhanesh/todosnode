@@ -16,6 +16,16 @@ router.get("/", isLoggedIn, async (req, res, next) => {
 });
 
 /**
+ * @desc show the registered todos
+ * @route /todo/create
+ * @method GET
+ * @access Public
+ */
+router.get("/create", (req, res, next) => {
+  res.render("createtodo", { user: req.user });
+});
+
+/**
  * @desc Creates the todo
  * @route /todo/create
  * @method POST
