@@ -77,7 +77,6 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
     .populate("todos")
     .exec((err, user) => {
       if (err) return res.send(err);
-      console.log(user);
       res.render("profile", { user: user });
     });
 });
@@ -85,10 +84,10 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
 /**
  * @desc logouts the user
  * @route /user/logout
- * @method GER
- * @access Public
+ * @method GET
+ * @access Authenticated
  */
-router.get("/logout", (req, res, next) => {
+router.get("/logout", isLoggedIn, (req, res, next) => {
   req.logout();
   res.redirect("/user/login");
 });

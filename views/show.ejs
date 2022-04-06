@@ -7,27 +7,26 @@
             <div class="list-group-item list-group-item-action" aria-current="true">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">
-                        <%= t.itemname %>
+                        <%= t.title %>
                     </h5>
-                    <small>
+                    <% if(String(t.owner)===String(user._id)) { %>
+                        <small>
+                            <a style="text-decoration: none;" href="/todo/update/<%= t._id%>">
+                                <i style="color: royalblue; font-size: 2vmax;" class="ri-edit-box-fill"></i>
+                            </a>
 
-                        <a style="text-decoration: none;" href="/update/<%= t._id %>">
-                            <i style="color: royalblue; font-size: 2vmax;" class="ri-edit-box-fill"></i>
-                        </a>
+                            <a style="text-decoration: none;" href="/todo/delete/<%= t._id %>">
+                                <i style="color: tomato; font-size: 2vmax;" class="ri-delete-bin-6-fill"></i>
+                            </a>
 
-                        <a style="text-decoration: none;" href="/delete/<%= t._id %>">
-                            <i style="color: tomato; font-size: 2vmax;" class="ri-delete-bin-6-fill"></i>
-                        </a>
-
-
-                    </small>
+                        </small>
+                        <% } else { %>
+                            <small class="text-danger">Badwe ye wale <br> tune nahi banae</small>
+                            <% } %>
                 </div>
                 <p class="mb-1">
-                    <%= t.itemdesc %>
+                    <%= t.description %>
                 </p>
-                <small>
-                    <%= t.deadline %>
-                </small>
             </div>
 
             <% }) %>

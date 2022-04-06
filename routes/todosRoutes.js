@@ -12,7 +12,7 @@ const { isLoggedIn } = require("../middleware/auth");
  */
 router.get("/", isLoggedIn, async (req, res, next) => {
   const todos = await Todo.find();
-  res.json(todos);
+  res.render("show", { Todos: todos, user: req.user });
 });
 
 /**
@@ -21,7 +21,7 @@ router.get("/", isLoggedIn, async (req, res, next) => {
  * @method GET
  * @access Public
  */
-router.get("/create", (req, res, next) => {
+router.get("/create", isLoggedIn, (req, res, next) => {
   res.render("createtodo", { user: req.user });
 });
 
@@ -47,6 +47,18 @@ router.post("/create", async (req, res, next) => {
 
   req.user.todos.push(todo._id);
   await req.user.save();
+  res.redirect("/user/profile");
+});
+
+/**
+ * @desc deletes the todos
+ * @route /todo/delete/:id
+ * @method GET
+ * @access Authenticated
+ */
+router.get("/delete/:id", isLoggedIn, async (req, res, next) => {
+  await Todo.findByIdAndDelete(req.params.id);
+  res.redirect("/user/profile");
 });
 
 module.exports = router;

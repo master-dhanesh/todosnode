@@ -3,17 +3,17 @@
         <%= user.username%> 👋
     </h3>
     <hr>
-    <%= user._id%>
-        <ol>
+    <img width="200" class="rounded-circle" src="/images/<%= user.avatar%>" alt="<%= user.avatar%>">
+    <ol>
 
-            <% user.todos.forEach(t=> { %>
-                <li>
-                    <%= t.title%> |
-                        <%= t.description%> |
-                            <a href="">delete</a> |
-                            <a href="">update</a>
-                            <% })%>
-                </li>
-        </ol>
+        <% user.todos.forEach(t=> { %>
+            <li>
+                <%= t.title%> |
+                    <%= t.description%> |
+                        <a href="/todo/delete/<%= t._id%>">delete</a> |
+                        <a href="/todo/update/<%= t._id%>">update</a>
+                        <% })%>
+            </li>
+    </ol>
 
-        <%- include('./partials/footer')%>
+    <%- include('./partials/footer')%>
