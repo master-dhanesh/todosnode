@@ -58,6 +58,39 @@ router.post("/create", async (req, res, next) => {
  */
 router.get("/delete/:id", isLoggedIn, async (req, res, next) => {
   await Todo.findByIdAndDelete(req.params.id);
+  let todoIndex = req.user.todos.findIndex(
+    (todo) => todo.toString() === req.params.id
+  );
+  req.user.todos.splice(todoIndex, 1);
+
+  await req.user.save();
+  res.redirect("/user/profile");
+});
+
+/**
+ * @desc deletes the todos
+ * @route /todo/update/:id
+ * @method GET
+ * @access Authenticated
+ */
+router.get("/update/:id", isLoggedIn, async (req, res, next) => {
+  const data = await Todo.findById(req.params.id);
+  res.render("update", { user: req.user, data });
+});
+
+/**
+ * @desc deletes the todos
+ * @route /todo/update/:id
+ * @method POST
+ * @access Authenticated
+ */
+router.post("/update/:id", isLoggedIn, async (req, res, next) => {
+  const updatedData = { ...req.body };
+  await Todo.findByIdAndUpdate(
+    req.params.id,
+    { $set: updatedData },
+    { new: true }
+  );
   res.redirect("/user/profile");
 });
 
