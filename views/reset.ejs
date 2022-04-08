@@ -1,0 +1,25 @@
+<%- include('./partials/header')%>
+
+
+  <form action="/user/reset" method="POST" class="mt-5 container">
+    <h3>Reset Password Admin</h3>
+    <div class="mb-3">
+      <label class="form-label">Old Password</label>
+      <input name="oldpassword" type="text" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">New Password</label>
+      <input name="newpassword" type="text" class="form-control">
+    </div>
+
+    <br>
+    <a href="/user/profile">mind changed ?</a>
+    <br> <br>
+    <button type="submit" class="btn btn-primary">Forgot Password</button>
+  </form>
+
+
+
+
+  <%- include('./partials/footer')%>

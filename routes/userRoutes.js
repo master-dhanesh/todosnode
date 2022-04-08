@@ -8,7 +8,8 @@ const User = require("../models/userModel");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 
-passport.use(new LocalStrategy(User.authenticate()));
+// passport.use(new LocalStrategy(User.authenticate()));
+passport.use(User.createStrategy());
 
 /**
  * @desc register page
@@ -90,6 +91,73 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
 router.get("/logout", isLoggedIn, (req, res, next) => {
   req.logout();
   res.redirect("/user/login");
+});
+
+/**
+ * @desc logouts the user
+ * @route /user/forgot
+ * @method GET
+ * @access Public
+ */
+router.get("/forgot", isLoggedIn, (req, res, next) => {
+  res.render("forgot", { user: null });
+});
+
+/**
+ * @desc logouts the user
+ * @route /user/forgot
+ * @method POST
+ * @access Public
+ */
+router.post("/forgot", isLoggedIn, async (req, res, next) => {
+  const { email, password, confirmPassword } = req.body;
+
+  if (password !== confirmPassword) {
+    res.send("Passwords do not match. <a href='/user/forgot'>Back</a>");
+  }
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.send("No user found with that email");
+  }
+
+  user.setPassword(password, async (err) => {
+    if (err) return res.send(err);
+    await user.save();
+    res.redirect("/user/login");
+  });
+});
+
+/**
+ * @desc logouts the user
+ * @route /user/reset
+ * @method GET
+ * @access Public
+ */
+router.get("/reset", isLoggedIn, async (req, res, next) => {
+  res.render("reset", { user: null });
+});
+
+/**
+ * @desc logouts the user
+ * @route /user/reset
+ * @method POST
+ * @access Public
+ */
+router.post("/reset", isLoggedIn, async (req, res, next) => {
+  const { oldpassword, newpassword } = req.body;
+  if (oldpassword === newpassword) {
+    res.send(
+      "New password cannot be the same as the old password.<a href='/user/forgot'>Back</a>"
+    );
+  }
+
+  req.user.changePassword(oldpassword, newpassword, async (err) => {
+    if (err) return res.send(err);
+    await req.user.save();
+    res.redirect("/user/login");
+  });
 });
 
 module.exports = router;

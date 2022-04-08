@@ -1,8 +1,8 @@
 <%- include('./partials/header')%>
 
 
-  <form action="/user/login" method="POST" class="mt-5 container">
-    <h3>Login Admin</h3>
+  <form action="/user/forgot" method="POST" class="mt-5 container">
+    <h3>Forgot Password Admin</h3>
     <div class="mb-3">
       <label class="form-label">Email</label>
       <input name="email" type="text" class="form-control">
@@ -13,11 +13,15 @@
       <input name="password" type="text" class="form-control">
     </div>
 
+    <div class="mb-3">
+      <label class="form-label">Confirm Password</label>
+      <input name="confirmPassword" type="text" class="form-control">
+    </div>
+
     <br>
-    <a href="/user/register">Don't have an account ?</a> <br>
-    <a href="/user/forgot">forgot password ?</a>
+    <a href="/user/login">back to login ?</a>
     <br> <br>
-    <button type="submit" class="btn btn-primary">Login Admin</button>
+    <button type="submit" class="btn btn-primary">Forgot Password</button>
   </form>
 
 
